@@ -23,22 +23,23 @@ defmodule Tower do
 
   def right_weight(filename, root) do
     {tree, weights} = build_tree_with_weights(lines(filename), %{}, %{})
-    find_intruder(tree, weights, [root], nil)
+    find_intruder(tree, weights, root, nil)
   end
 
-  def find_intruder(_, _, _, bad) when not is_nil(bad), do: bad
-  def find_intruder(tree, weights, root, nil) do
+  defp find_intruder(_, _, _, bad) when not is_nil(bad), do: bad
+  defp find_intruder(tree, weights, root, nil) do
     weight_branches(tree, weights, root)
   end
 
-  def weight_branches(tree, weights, root) do
+  defp weight_branches(tree, weights, root) do
     if Map.has_key?(tree, root) do
       branches = Enum.map(tree[root], fn(x) -> weight_branches(tree, weights, x) end)
       if length(Enum.uniq(branches)) > 1 do
         intruder_index = find_different_index(branches)
         right_weight = Enum.at(branches, rem(intruder_index + 1, length(branches)))
-        correction = branches[intruder_index] - right_weight
+        correction = Enum.at(branches, intruder_index) - right_weight
         bad = weights[Enum.at(tree[root], intruder_index)] - correction
+        IO.puts(bad)
         find_intruder(tree, weights, root, bad)
       else
         weights[root] + Enum.sum(branches)
@@ -52,8 +53,8 @@ defmodule Tower do
     Enum.find_index(list, fn(x) -> length(Enum.uniq(list -- [x])) == 1 end)
   end
 
-  def build_tree_with_weights([], tree, weights), do: {tree, weights}
-  def build_tree_with_weights([line|lines], tree, weights) do
+  defp build_tree_with_weights([], tree, weights), do: {tree, weights}
+  defp build_tree_with_weights([line|lines], tree, weights) do
     line_parts = parts(line)
     build_tree_with_weights(lines, add_to_tree(line_parts, tree), insert_in_weights(line_parts, weights))
   end
