@@ -52,22 +52,8 @@ defmodule Memory do
   # 330   10    1    1   54
   # 351   11   23   25   26
   # 362  747  806--->   ...
-
-  def next_perimeter(previous, perimeter, location) when last(perimeter) >= location, do: perimeter
-  def next_perimeter(previous, perimeter, location) do
-    new_perimeter = build_perimeter(previous, perimeter, 0, 0, [])
-    next_perimeter(last(perimeter), new_perimeter, location)
-  end
-
-  defp new_perimeter(previous, perimeter, i, 4, result), do: result
-  defp new_perimeter(previous, perimeter, 4, j, result), do: new_perimeter(previous, perimeter, 0, j+1, result)
-
-  end
-
-  defp last(perimeter), do: perimeter |> List.last |> List.last
 end
-location = 277678
-perimeter = [[26, 54, 57, 59], [122, 133, 142, 147], [304, 330, 351, 362], [747, 806, 854, 905]]
-previous = 905
 
-
+# Part two
+# https://oeis.org/A141481
+# https://oeis.org/A141481/b141481.txt
