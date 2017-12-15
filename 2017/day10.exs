@@ -11,7 +11,7 @@ use Bitwise
 defmodule KnotHash do
 
   def knot_hash(input) do
-    input ++ [17, 31, 73, 47, 23]
+    (to_charlist(input) ++ [17, 31, 73, 47, 23])
     |> sparse_hash()
     |> dense_hash()
     |> Enum.map(&int_to_hex/1)
@@ -80,5 +80,5 @@ KnotHash.one_round_hash(lengths) |> IO.puts
 # --- Part Two ---
 
 # Character list instead of binary
-input = '102,255,99,252,200,24,219,57,103,2,226,254,1,0,69,216'
+input = "102,255,99,252,200,24,219,57,103,2,226,254,1,0,69,216"
 KnotHash.knot_hash(input) |> IO.puts
