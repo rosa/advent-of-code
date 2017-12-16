@@ -70,8 +70,8 @@ defmodule KnotHash do
     Enum.slice(list, 0, start) ++ Enum.reverse(Enum.slice(list, start, size), Enum.slice(list, start + size, length(list)))
   end
 
-  defp int_to_hex(integer) when integer > 16, do: Integer.to_charlist(integer, 16)
-  defp int_to_hex(integer), do: ['0'] ++ Integer.to_charlist(integer, 16)
+  def int_to_hex(integer) when integer > 15, do: Integer.to_charlist(integer, 16)
+  def int_to_hex(integer), do: ['0'] ++ Integer.to_charlist(integer, 16)
 end
 
 lengths = [102,255,99,252,200,24,219,57,103,2,226,254,1,0,69,216]
