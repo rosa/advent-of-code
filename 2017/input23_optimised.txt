@@ -1,0 +1,14 @@
+set b 93
+set c b
+mul b 100
+sub b -100000
+set c b
+sub c -17000
+jp b 2
+sub h -1
+set g b
+sub g c
+jnz g 2
+jnz 1 3
+sub b -17
+jnz 1 -7
