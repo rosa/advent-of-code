@@ -90,8 +90,8 @@ defmodule Stream do
   end
 end
 
-Stream.total_score("input09.txt") |> IO.puts
+Stream.total_score("./inputs/input09.txt") |> IO.puts
 
 # --- Part Two ---
 
-Stream.total_garbage("input09.txt") |> IO.puts
+Stream.total_garbage("./inputs/input09.txt") |> IO.puts

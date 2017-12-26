@@ -77,8 +77,8 @@ defmodule Dance do
 end
 
 
-Dance.final("input16.txt") |> IO.puts
+Dance.final("./inputs/input16.txt") |> IO.puts
 
 # --- Part Two ---
-Dance.whole_dance("input16.txt") |> IO.puts
+Dance.whole_dance("./inputs/input16.txt") |> IO.puts
 

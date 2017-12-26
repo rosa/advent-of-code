@@ -92,8 +92,8 @@ defmodule Network do
   end
 end
 
-Network.path("input19.txt") |> IO.puts
+Network.path("./inputs/input19.txt") |> IO.puts
 
 # --- Part Two ---
 
-Network.steps("input19.txt") |> IO.puts
+Network.steps("./inputs/input19.txt") |> IO.puts

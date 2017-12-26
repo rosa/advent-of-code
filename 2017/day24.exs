@@ -140,8 +140,8 @@ defmodule MagneticBridge do
   end
 end
 
-MagneticBridge.strongest("input24.txt") |> IO.puts
+MagneticBridge.strongest("./inputs/input24.txt") |> IO.puts
 
 # --- Part Two ---
 
-MagneticBridge.longest("input24.txt") |> IO.inspect
+MagneticBridge.longest("./inputs/input24.txt") |> IO.inspect

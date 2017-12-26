@@ -138,8 +138,8 @@ defmodule ArtGrid do
   end
 end
 
-ArtGrid.on_after_play("input21.txt", 5) |> IO.puts
+ArtGrid.on_after_play("./inputs/input21.txt", 5) |> IO.puts
 
 # --- Part Two ---
 
-ArtGrid.on_after_play("input21.txt", 18) |> IO.puts
+ArtGrid.on_after_play("./inputs/input21.txt", 18) |> IO.puts

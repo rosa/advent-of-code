@@ -117,8 +117,8 @@ defmodule InfectedCluster do
   end
 end
 
-InfectedCluster.infection_bursts("input22.txt", 10_000, &InfectedCluster.simulate_simple/5) |> IO.puts
+InfectedCluster.infection_bursts("./inputs/input22.txt", 10_000, &InfectedCluster.simulate_simple/5) |> IO.puts
 
 # --- Part Two ---
 
-InfectedCluster.infection_bursts("input22.txt", 10_000_000, &InfectedCluster.simulate_complex/5) |> IO.puts
+InfectedCluster.infection_bursts("./inputs/input22.txt", 10_000_000, &InfectedCluster.simulate_complex/5) |> IO.puts

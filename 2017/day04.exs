@@ -28,8 +28,8 @@ defmodule Passphrase do
   defp sort_string(string), do: String.graphemes(string) |> Enum.sort |> Enum.join
 end
 
-Passphrase.how_many?("input04.txt", &Passphrase.valid_simple?/1) |> IO.puts
+Passphrase.how_many?("./inputs/input04.txt", &Passphrase.valid_simple?/1) |> IO.puts
 
 # --- Part Two ---
 
-Passphrase.how_many?("input04.txt", &Passphrase.valid_anagrams?/1) |> IO.puts
+Passphrase.how_many?("./inputs/input04.txt", &Passphrase.valid_anagrams?/1) |> IO.puts

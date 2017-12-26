@@ -93,8 +93,8 @@ defmodule ParticleSwarm do
   end
 end
 
-ParticleSwarm.closest("input20.txt") |> IO.puts
+ParticleSwarm.closest("./inputs/input20.txt") |> IO.puts
 
 # --- Part Two ---
 
-ParticleSwarm.survivors("input20.txt") |> IO.puts
+ParticleSwarm.survivors("./inputs/input20.txt") |> IO.puts

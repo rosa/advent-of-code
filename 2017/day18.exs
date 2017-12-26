@@ -150,8 +150,8 @@ defmodule Duet do
 end
 
 
-Duet.recover("input18.txt") |> IO.puts
+Duet.recover("./inputs/input18.txt") |> IO.puts
 
 # --- Part Two ---
 
-Duet.run_in_parallel("input18.txt") |> IO.puts
+Duet.run_in_parallel("./inputs/input18.txt") |> IO.puts

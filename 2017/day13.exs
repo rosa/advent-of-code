@@ -92,10 +92,10 @@ defmodule Firewall do
 end
 
 
-Firewall.severity_of_trip("input13.txt") |> IO.puts
+Firewall.severity_of_trip("./inputs/input13.txt") |> IO.puts
 
 # --- Part Two ---
 
 # Not very efficient... ^_^U
-Firewall.delay("input13.txt")
+Firewall.delay("./inputs/input13.txt")
 

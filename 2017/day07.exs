@@ -107,9 +107,9 @@ defmodule Tower do
   end
 end
 
-root = Tower.bottom_program("input07.txt")
+root = Tower.bottom_program("./inputs/input07.txt")
 IO.puts(root)
 
 # --- Part Two ---
 
-Tower.right_weight("input07.txt", root) |> IO.puts
+Tower.right_weight("./inputs/input07.txt", root) |> IO.puts

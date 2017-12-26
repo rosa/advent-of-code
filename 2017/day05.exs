@@ -29,8 +29,8 @@ defmodule Jumps do
   end
 end
 
-Jumps.number_of_steps("input05.txt", &Jumps.next_part_1/2) |> IO.puts
+Jumps.number_of_steps("./inputs/input05.txt", &Jumps.next_part_1/2) |> IO.puts
 
 # --- Part Two ---
 
-Jumps.number_of_steps("input05.txt", &Jumps.next_part_2/2) |> IO.puts
+Jumps.number_of_steps("./inputs/input05.txt", &Jumps.next_part_2/2) |> IO.puts

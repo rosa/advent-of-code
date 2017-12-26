@@ -96,7 +96,7 @@ defmodule Coprocessor do
   end
 end
 
-Coprocessor.count_mul("input23.txt") |> IO.puts
+Coprocessor.count_mul("./inputs/input23.txt") |> IO.puts
 
 # --- Part Two ---
 
@@ -128,4 +128,4 @@ Coprocessor.count_mul("input23.txt") |> IO.puts
 # We do h += 1 when we can find a d between 2 and b that divides b => when b is not prime
 # New instruction: jp X Y jump if prime
 
-Coprocessor.run("input23_optimised.txt", %{"a" => 1}) |> IO.inspect
+Coprocessor.run("./inputs/input23_optimised.txt", %{"a" => 1}) |> IO.inspect

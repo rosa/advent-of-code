@@ -63,8 +63,8 @@ defmodule Register do
   end
 end
 
-Register.execute_program("input08.txt") |> IO.puts
+Register.execute_program("./inputs/input08.txt") |> IO.puts
 
 # --- Part Two ---
 
-Register.execute_program_biggest_held("input08.txt") |> IO.puts
+Register.execute_program_biggest_held("./inputs/input08.txt") |> IO.puts

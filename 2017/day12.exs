@@ -85,10 +85,10 @@ defmodule Pipes do
 end
 
 
-Pipes.group_0_size("input12.txt") |> IO.puts
+Pipes.group_0_size("./inputs/input12.txt") |> IO.puts
 
 # --- Part Two ---
 
-Pipes.groups("input12.txt") |> Enum.count |> IO.puts
+Pipes.groups("./inputs/input12.txt") |> Enum.count |> IO.puts
 
 

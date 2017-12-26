@@ -59,8 +59,8 @@ defmodule HexGrid do
   end
 end
 
-HexGrid.steps("input11.txt") |> IO.puts
+HexGrid.steps("./inputs/input11.txt") |> IO.puts
 
 # --- Part Two ---
 
-HexGrid.furthest("input11.txt") |> IO.puts
+HexGrid.furthest("./inputs/input11.txt") |> IO.puts
