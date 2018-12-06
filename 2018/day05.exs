@@ -5,7 +5,6 @@
 # dabCBAcCcaDA      Either 'cC' or 'Cc' are removed (the result is the same).
 # dabCBAcaDA        No further actions can be taken.
 # After all possible reactions, the resulting polymer contains 10 units.
-
 defmodule Polymer do
   def reaction(polymer) do
     polymer
