@@ -71,7 +71,7 @@ defmodule Battle do
 
     if test_mode do
       IO.puts(result)
-      exit(:shutdown)
+      exit(:normal)
     else
       result
     end
