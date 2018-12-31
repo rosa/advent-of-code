@@ -92,12 +92,12 @@ def execute(code, registers)
   registers[:a]
 end
 
-code = File.readlines('input_day23.txt').map(&:strip)
+code = File.readlines('inputs/input23.txt').map(&:strip)
 code = optimise(code)
 puts execute(code, { a: 7, b: 0, c: 0, d: 0 })
 
 # --- Part Two ---
-code = File.readlines('input_day23.txt').map(&:strip)
+code = File.readlines('inputs/input23.txt').map(&:strip)
 code = optimise(code)
 puts execute(code, { a: 12, b: 0, c: 0, d: 0 })
 

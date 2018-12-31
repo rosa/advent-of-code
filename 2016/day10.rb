@@ -66,7 +66,7 @@ def go!(bots, instructions, magic_pair = [17, 61])
   go!(bots, instructions, magic_pair)
 end
 
-instructions = File.readlines('input_day10.txt').map(&:strip)
+instructions = File.readlines('inputs/input10.txt').map(&:strip)
 
 init = instructions.select { |ins| ins.start_with? 'value' }
 bots = init_game(init)

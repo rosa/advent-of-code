@@ -48,7 +48,7 @@ ROWS.times do
   screen << ['.']*COLS
 end
 
-instructions = File.readlines('input_day8.txt').map(&:strip)
+instructions = File.readlines('inputs/input08.txt').map(&:strip)
 
 # instructions = ['rect 3x2', 'rotate column x=1 by 1', 'rotate row y=0 by 4', 'rotate column x=1 by 1']
 

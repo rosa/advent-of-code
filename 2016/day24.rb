@@ -62,7 +62,7 @@ def len(order, distances)
   len
 end
 
-board = File.readlines('input_day24.txt').map(&:strip).map(&:chars)
+board = File.readlines('inputs/input24.txt').map(&:strip).map(&:chars)
 
 numbers = board.flatten.select { |d| d =~ /\d+/ }.sort
 indexes = {}

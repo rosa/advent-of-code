@@ -2,7 +2,7 @@
 
 # --- Part One ---
 
-compressed = File.read('input_day9.txt').gsub(/\n|\s/, '')
+compressed = File.read('inputs/input09.txt').gsub(/\n|\s/, '')
 
 def marker(marker)
   return [0, 1] unless marker && marker =~ /(\d+)x(\d+)/

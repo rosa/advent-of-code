@@ -79,7 +79,7 @@ def execute(code, registers)
   end
 end
 
-code = File.readlines('input_day25.txt').map(&:strip)
+code = File.readlines('inputs/input25.txt').map(&:strip)
 code = optimise(code)
 
 result = :error

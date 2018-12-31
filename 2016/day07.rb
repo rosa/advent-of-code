@@ -32,7 +32,7 @@ def tls?(ip)
   outs.any? { |s| abba?(s.chars) } && !ins.any? { |s| abba?(s.chars) }
 end
 
-lines = File.readlines('input_day7.txt').map(&:strip)
+lines = File.readlines('inputs/input07.txt').map(&:strip)
 
 puts lines.count { |line| tls?(line) }
 

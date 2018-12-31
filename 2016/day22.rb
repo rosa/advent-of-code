@@ -39,7 +39,7 @@ def viable_pairs(nodes)
 end
 
 
-df = File.readlines('input_day22.txt').map(&:strip)
+df = File.readlines('inputs/input22.txt').map(&:strip)
 nodes = []
 
 df.each do |df_line|

@@ -1,7 +1,7 @@
 # --- Day 6: Signals and Noise ---
 
 # --- Part One ---
-lines = File.readlines('input_day6.txt').map(&:strip)
+lines = File.readlines('inputs/input06.txt').map(&:strip)
 
 columns = []
 

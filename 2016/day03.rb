@@ -12,12 +12,12 @@ def possible_triangles(triangles)
   triangles.count { |triangle| possible?(triangle.map(&:to_i)) }
 end
 
-triangles = File.readlines('input_day3.txt').map(&:strip).map(&:split)
+triangles = File.readlines('inputs/input03.txt').map(&:strip).map(&:split)
 
 puts possible_triangles(triangles)
 
 # --- Part Two ---
-lines = File.readlines('input_day3.txt').map(&:strip).map(&:split)
+lines = File.readlines('inputs/input03.txt').map(&:strip).map(&:split)
 transposed = [[], [], []]
 triangles = []
 lines.each do |line|

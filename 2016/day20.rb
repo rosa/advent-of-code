@@ -3,7 +3,7 @@
 # --- Part One ---
 MAX = 4294967295
 # MAX = 9
-intervals = File.readlines('input_day20.txt').map(&:strip).map { |block| block.split('-').map(&:to_i) }
+intervals = File.readlines('inputs/input20.txt').map(&:strip).map { |block| block.split('-').map(&:to_i) }
 # intervals = [[5,8], [0,2], [4,7]]
 intervals.sort_by! { |i| i.first }
 
