@@ -43,7 +43,7 @@ class Instruction(opcode: Int, val parameters: IntArray, val ip: Int) {
         operation = opcode % 100
         parameterModes = IntArray(parameters.size) { 0 }
         for (i in 0..(parameters.size - 1)) {
-            var divisor = 10.0.pow(i + 2).toInt()
+            val divisor = 10.0.pow(i + 2).toInt()
             parameterModes[i] = (opcode / divisor) % 10
         }
     }
