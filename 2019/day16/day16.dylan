@@ -2,27 +2,19 @@ Module: day16
 Synopsis: Day 16: Flawed Frequency Transmission
 Author: rosa
 
-define function character-to-integer
-  (character :: <character>)
+define function character-to-integer (character :: <character>)
   as(<integer>, character) - as(<integer>, '0');
 end function character-to-integer;
 
-define function vector-to-integer
-  (input :: <vector>)
-  string-to-integer(join(map(method (x) integer-to-string(x) end, input), ""))
+define function vector-to-integer (input :: <vector>)
+  string-to-integer(join(map(integer-to-string, input), ""))
 end function vector-to-integer;
 
-define function parse
-  (sequence :: <string>)
-  let parsed = make(<vector>, size: sequence.size);
-  for (i from 0 below sequence.size)
-    parsed[i] := character-to-integer(sequence[i]);
-  end;
-  parsed
+define function parse (sequence :: <string>)
+  map-as(<vector>, character-to-integer, sequence)
 end function parse;
 
-define function calculate-ith
-  (input :: <vector>, i :: <integer>)
+define function calculate-ith (input :: <vector>, i :: <integer>)
   let base = vector(0, 1, 0, -1);
   let base-index = 0;
   let j = 0;
@@ -41,18 +33,11 @@ define function calculate-ith
   modulo(abs(output), 10)
 end function calculate-ith;
 
-define function fft-phase
-  (input :: <vector>)
-  let output = make(<vector>, size: size(input));
-
-  for (i from 0 below size(output))
-    output[i] := calculate-ith(input, i)
-  end;
-  output
+define function fft-phase (input :: <vector>)
+  map-as(<vector>, curry(calculate-ith, input), range(below: size(input)))
 end function fft-phase;
 
-define function fft
-  (input :: <vector>, phases :: <integer>)
+define function fft (input :: <vector>, phases :: <integer>)
   let output = input.shallow-copy;
   for (phase from 0 below phases)
     output := fft-phase(output)
@@ -60,8 +45,7 @@ define function fft
   output
 end function fft;
 
-define function slice
-  (input :: <vector>, offset :: <integer>, n :: <integer>)
+define function slice (input :: <vector>, offset :: <integer>, n :: <integer>)
   let output = make(<vector>, size: n);
   for (i from offset below offset + n)
     output[i - offset] := input[i];
@@ -70,8 +54,7 @@ define function slice
 end function slice;
 
 // --- Part Two ---
-define function extend
-  (input :: <vector>, n :: <integer>)
+define function extend (input :: <vector>, n :: <integer>)
   let m = size(input);
   let output = make(<vector>, size: n * m);
   for (i from 0 below n)
@@ -90,8 +73,7 @@ end function extend;
 // The rest are all 1s because 6,500,000 - 5,972,731 = 527,269, way smaller than 5,972,731
 // which is the number of 1s we're going to have. Then, we just need to sum the values
 // of the tail of the list, starting from the last one up to the first element in the tail
-define function fft-tail-phase
-  (input :: <vector>)
+define function fft-tail-phase (input :: <vector>)
   let m = size(input);
   let output = input.shallow-copy;
   for (i from m - 1 above 0 by -1)
@@ -100,8 +82,7 @@ define function fft-tail-phase
   output
 end function fft-tail-phase;
 
-define function fft-tail
-  (input :: <vector>, phases :: <integer>)
+define function fft-tail (input :: <vector>, phases :: <integer>)
   let output = input.shallow-copy;
   for (phase from 0 below phases)
     output := fft-tail-phase(output)
@@ -109,8 +90,7 @@ define function fft-tail
   output
 end function fft-tail;
 
-define function main
-    (name :: <string>, arguments :: <vector>)
+define function main (name :: <string>, arguments :: <vector>)
   let input = read-line(*standard-input*);
   // --- Part One ---
   let output = fft(parse(input), 100);
@@ -128,6 +108,7 @@ end function main;
 
 main(application-name(), application-arguments());
 
+// dylan-compiler -build day16.lid
 // cat ../inputs/input16.txt | _build/bin/day16
 // 68317988
 // 53850800
