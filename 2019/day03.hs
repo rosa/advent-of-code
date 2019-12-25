@@ -55,5 +55,10 @@ minCombinedDelay [wire1, wire2] =
 main :: IO ()
 main = do
     contents <- readFile "inputs/input03.txt"
-    --print $ (closestDistance (wires contents))
+    print $ (closestDistance (wires contents))
     print $ (minCombinedDelay (wires contents))
+
+--ghc day03.hs
+--./day03
+--1519
+--14358
