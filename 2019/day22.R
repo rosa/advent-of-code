@@ -1,5 +1,7 @@
 # --- Day 22: Slam Shuffle ---
 
+library(gmp) # GNU Multi-precision library bindings, necessary for Part 2
+
 parse.rule <- function(line) {
   words = unlist(strsplit(line, " "))
   # [0] deal into new stack
@@ -127,8 +129,6 @@ print(which(2019 == cards) - 1)
 
 # --- Part Two ---
 # Apply individual shuffle to the 119315717514047 sized deck 101741582076661 times in a row
-options(digits=22) # Otherwise these numbers don't fit
-library(gmp) # GNU Multi-precision library bindings
 
 # We focus on the position asked and apply the individual rules in reverse order
 # Applying the reverse rules once:
@@ -151,10 +151,10 @@ b = (p - a*x) %% deck_size
 # a^(n-1)*b + a^(n-2)*b + ... + a^1*b + a^0*b = (a^(n-1) + a^(n-2) + ... + a^1 + a^0) * b
 # That's the sum of a geometric series with r = a:
 # (a^n - 1) / (a - 1)
-# Thus our solution is: a^n*x + ((a^n - 1)*modular_inverse(a-1, m))*b (mod m)
+# Thus our solution is: a^n*x + ((a^n - 1)/a-1)*b (mod m)
 n = 101741582076661
 a_n = powm(a, n, deck_size)
-print(((a_n * x) + ((a_n - 1) * modular_inverse(a - 1, deck_size) * b)) %% deck_size)
+print(((a_n * x) + modular_division(a_n - 1, a - 1, deck_size) * b) %% deck_size)
 
 # Big Integer ('bigz') :
 # [1] 81781678911487
