@@ -160,7 +160,6 @@ impl Program {
 }
 
 impl Instruction {
-    // Another static method, taking two arguments:
     fn new(opcode: i64, parameters: Vec<i64>) -> Instruction {
         let mut parameter_modes = vec![0; parameters.len()];
         for i in 0..parameters.len() {

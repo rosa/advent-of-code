@@ -13,7 +13,7 @@ albeit a quite maddening one, especially as I re-implemented the Intcode interpr
 - Day 10 in C
 - Day 11 in Rust
 - Day 12 in OCaml
-- Day 13
+- Day 13 Julia
 - Day 14 in Erlang
 - Day 15
 - Day 16 in Dylan
