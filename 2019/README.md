@@ -15,7 +15,7 @@ albeit a quite maddening one, especially as I re-implemented the Intcode interpr
 - Day 12 in OCaml
 - Day 13 Julia
 - Day 14 in Erlang
-- Day 15
+- Day 15 Dart
 - Day 16 in Dylan
 - Day 17
 - Day 18 in Python
