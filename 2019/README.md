@@ -20,7 +20,7 @@ albeit a quite maddening one, especially as I re-implemented the Intcode interpr
 - Day 17 in Scala
 - Day 18 in Python
 - Day 19 in Crystal
-- Day 20
+- Day 20 in Nim
 - Day 21
 - Day 22 in R
 - Day 23
