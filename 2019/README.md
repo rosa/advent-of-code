@@ -13,15 +13,15 @@ albeit a quite maddening one, especially as I re-implemented the Intcode interpr
 - Day 10 in C
 - Day 11 in Rust
 - Day 12 in OCaml
-- Day 13 Julia
+- Day 13 in Julia
 - Day 14 in Erlang
-- Day 15 Dart
+- Day 15 in Dart
 - Day 16 in Dylan
 - Day 17 in Scala
 - Day 18 in Python
 - Day 19 in Crystal
 - Day 20 in Nim
-- Day 21
+- Day 21 in Ruby
 - Day 22 in R
 - Day 23
 - Day 24 in C++
