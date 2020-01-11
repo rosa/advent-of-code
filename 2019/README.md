@@ -23,6 +23,6 @@ albeit a quite maddening one, especially as I re-implemented the Intcode interpr
 - Day 20 in Nim
 - Day 21 in Ruby
 - Day 22 in R
-- Day 23
+- Day 23 in Elixir
 - Day 24 in C++
 - Day 25
