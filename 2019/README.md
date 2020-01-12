@@ -25,4 +25,4 @@ albeit a quite maddening one, especially as I re-implemented the Intcode interpr
 - Day 22 in R
 - Day 23 in Elixir
 - Day 24 in C++
-- Day 25
+- Day 25 in JavaScript
