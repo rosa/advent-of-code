@@ -10,3 +10,4 @@ _Hyper_ Polyglot challenge! This year I try to do every problem using a differen
 - Day 7 in Clojure
 - Day 8 in MoonScript
 - Day 9 in ooc
+- Day 10 in Ada
