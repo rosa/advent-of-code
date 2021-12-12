@@ -1,28 +1,28 @@
 Polyglot challenge! This year I tried to do every problem using a different language. A lot of fun and a great learning experience,
 albeit a quite maddening one, especially as I re-implemented the Intcode interpreter over and over.
 
-- Day 1 in awk
-- Day 2 in Prolog
-- Day 3 in Haskell
-- Day 4 in Common Lisp
-- Day 5 in Kotlin
-- Day 6 in Swift
-- Day 7 in Lua
-- Day 8 in Perl
-- Day 9 in Go
-- Day 10 in C
-- Day 11 in Rust
-- Day 12 in OCaml
-- Day 13 in Julia
-- Day 14 in Erlang
-- Day 15 in Dart
-- Day 16 in Dylan
-- Day 17 in Scala
-- Day 18 in Python
-- Day 19 in Crystal
-- Day 20 in Nim
-- Day 21 in Ruby
-- Day 22 in R
-- Day 23 in Elixir
-- Day 24 in C++
-- Day 25 in JavaScript
+- Day 1 in [awk](https://en.wikipedia.org/wiki/AWK)
+- Day 2 in [Prolog](https://www.swi-prolog.org/)
+- Day 3 in [Haskell](https://www.haskell.org/)
+- Day 4 in [Common Lisp](https://common-lisp.net/)
+- Day 5 in [Kotlin](https://kotlinlang.org/)
+- Day 6 in [Swift](https://www.swift.org/)
+- Day 7 in [Lua](https://www.lua.org/)
+- Day 8 in [Perl](https://www.perl.org/)
+- Day 9 in [Go](https://go.dev/)
+- Day 10 in [C](https://en.wikipedia.org/wiki/C_(programming_language))
+- Day 11 in [Rust](https://www.rust-lang.org/)
+- Day 12 in [OCaml](https://ocaml.org/)
+- Day 13 in [Julia](https://julialang.org/)
+- Day 14 in [Erlang](https://www.erlang.org/)
+- Day 15 in [Dart](https://dart.dev/)
+- Day 16 in [Dylan](https://opendylan.org/)
+- Day 17 in [Scala](https://www.scala-lang.org/)
+- Day 18 in [Python](https://www.python.org/)
+- Day 19 in [Crystal](https://crystal-lang.org/)
+- Day 20 in [Nim](https://nim-lang.org/)
+- Day 21 in [Ruby](https://www.ruby-lang.org/en/)
+- Day 22 in [R](https://www.r-project.org/)
+- Day 23 in [Elixir](https://elixir-lang.org/)
+- Day 24 in [C++](https://isocpp.org/)
+- Day 25 in [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
