@@ -13,3 +13,4 @@ _Hyper_ Polyglot challenge! This year I try to do every problem using a differen
 - Day 10 in [Ada](https://en.wikipedia.org/wiki/Ada_(programming_language))
 - Day 11 in [Pyret](https://www.pyret.org/)
 - Day 12 in [Racket](https://racket-lang.org/)
+- Day 13 in [Octave](https://www.gnu.org/software/octave/index)
