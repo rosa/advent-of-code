@@ -15,3 +15,4 @@ _Hyper_ Polyglot challenge! This year I try to do every problem using a differen
 - Day 12 in [Racket](https://racket-lang.org/)
 - Day 13 in [Octave](https://www.gnu.org/software/octave/index)
 - Day 14 in [V](https://vlang.io/)
+- Day 15 in [Maxima](https://maxima.sourceforge.io/)

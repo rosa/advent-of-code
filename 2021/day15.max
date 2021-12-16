@@ -1,0 +1,62 @@
+/* --- Day 15: Chiton --- */
+
+load(graphs)$
+
+parse_input(name) := block(
+   [lines: [ ], file: openr(name), line],
+   while stringp(line: readline(file)) do lines: endcons(map(eval_string, charlist(line)) , lines),
+   close(file),
+   lines
+)$
+
+build_graph(cave_map) := block(
+   [n: length(cave_map), m: length(cave_map[1]), edges: []],
+   for i:1 thru n do for j:1 thru m do block(
+      [vertex: (i-1)*m + (j-1)],
+      if i > 1 then edges: cons([[vertex, vertex - m], cave_map[i-1][j]], edges),
+      if j > 1 then edges: cons([[vertex, vertex - 1], cave_map[i][j-1]], edges),
+      if i < n then edges: cons([[vertex, vertex + m], cave_map[i+1][j]], edges),
+      if j < m then edges: cons([[vertex, vertex + 1], cave_map[i][j+1]], edges)
+   ),
+   create_graph(n*m, edges, directed)
+)$
+
+increase_risk(cave_map) := map(lambda([list], map(lambda([risk], if risk = 9 then 1 else risk + 1), list)), cave_map)$
+
+expand_right(cave_map) := block (
+   [expansion: cave_map],
+   for i:1 thru 4 do (
+      expansion: increase_risk(expansion),
+      cave_map: map(lambda([l1, l2], append(l1, l2)), cave_map, expansion)
+   ),
+   cave_map
+)$
+
+expand_downwards(cave_map) := block(
+   [expansion: cave_map],
+   for i:1 thru 4 do (
+      expansion: increase_risk(expansion),
+      cave_map: append(cave_map, expansion)
+   ),
+   cave_map
+)$
+
+expand(cave_map) := expand_downwards(expand_right(cave_map))$
+
+/* Part one */
+cave_map: parse_input("inputs/input15.txt")$
+graph: build_graph(cave_map);
+path: shortest_weighted_path(0, graph_order(graph) - 1, graph);
+print(first(path))$
+
+/* Part two */
+expanded_cave_map: expand(cave_map)$
+graph: build_graph(expanded_cave_map);
+path: shortest_weighted_path(0, graph_order(graph) - 1, graph);
+print(first(path))$
+
+/*
+   maxima --batch=day15.max
+   613
+   2899
+*/
