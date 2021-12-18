@@ -1,0 +1,138 @@
+#! /usr/local/bin/abs
+
+# --- Day 18: Snailfish ---
+
+f read_homework() {
+  lines = []
+  for line in stdin {
+    lines.push(line)
+  }
+  lines.map(eval)
+}
+
+f equal(n1, n2) {
+  if type(n1) == "NUMBER" && type(n2) == "NUMBER" {
+    n1 == n2
+  } else if type(n1) == "ARRAY" && type(n2) == "ARRAY" && len(n1) == len(n2) {
+    equal(n1[0], n2[0]) && equal(n1[1], n2[1])
+  } else {
+    false
+  }
+}
+
+f addition(n1, n2) {
+  [n1, n2]
+}
+
+f simple(n) {
+  type(n) == "ARRAY" && type(n[0]) == "NUMBER" && type(n[1]) == "NUMBER"
+}
+
+f propagate_sum_on_left_side(n, v) {
+  if type(n) == "NUMBER" {
+    n + v
+  } else {
+    [propagate_sum_on_left_side(n[0], v), n[1]]
+  }
+}
+
+f propagate_sum_on_right_side(n, v) {
+  if type(n) == "NUMBER" {
+    n + v
+  } else {
+    [n[0], propagate_sum_on_right_side(n[1], v)]
+  }
+}
+
+f explode(n, depth = 0) {
+  if type(n) == "NUMBER" {
+    {"replace": n}
+  } else if simple(n) && depth == 4 {
+    {"left": n[0], "right": n[1], "replace": 0, "exploded": true}
+  } else {
+    left_explosion = explode(n[0], depth + 1)
+    if left_explosion.right != null {
+      {"replace": [left_explosion.replace, propagate_sum_on_left_side(n[1], left_explosion.right)], "left": left_explosion.left, "exploded": left_explosion.exploded }
+    } else if left_explosion.left != null {
+      {"replace": [left_explosion.replace, n[1]], "left": left_explosion.left, "exploded": left_explosion.exploded }
+    } else if !left_explosion.exploded {
+      right_explosion = explode(n[1], depth + 1)
+      if right_explosion.left != null {
+        {"replace": [propagate_sum_on_right_side(n[0], right_explosion.left), right_explosion.replace], "right": right_explosion.right, "exploded": right_explosion.exploded }
+      } else if right_explosion.right != null {
+        {"replace": [n[0], right_explosion.replace], "right": right_explosion.right, "exploded": right_explosion.exploded }
+      } else {
+        {"replace": [left_explosion.replace, right_explosion.replace], "exploded": right_explosion.exploded}
+      }
+    } else {
+      {"replace": [left_explosion.replace, n[1]], "exploded": left_explosion.exploded}
+    }
+  }
+}
+
+f split(n) {
+  if type(n) == "NUMBER" {
+    if n >= 10 {
+      {"replace": [floor(n/2), ceil(n/2)], "split": true}
+    } else {
+      {"replace": n}
+    }
+  } else {
+    left_split = split(n[0])
+    if left_split.split {
+      {"replace": [left_split.replace, n[1]], "split": left_split.split}
+    } else {
+      right_split = split(n[1])
+      {"replace": [left_split.replace, right_split.replace], "split": right_split.split}
+    }
+  }
+}
+
+f reduce(n) {
+  e = explode(n)
+  if e.exploded {
+    reduce(e.replace)
+  } else {
+    s = split(n)
+    if s.split {
+      reduce(s.replace)
+    } else {
+      n
+    }
+  }
+}
+
+f magnitude(n) {
+  if type(n) == "NUMBER" {
+    n
+  } else {
+    3 * magnitude(n[0]) + 2 * magnitude(n[1])
+  }
+}
+
+homework = read_homework()
+
+# Part 1
+result = homework[0]
+for number in homework[1:] {
+  result = reduce(addition(result, number))
+}
+echo(magnitude(result))
+
+# Part 2
+max_magnitude = 0
+for n1 in homework {
+  for n2 in (homework + []) {
+    result = reduce(addition(n1, n2))
+    m = magnitude(result)
+    if (m > max_magnitude) {
+      max_magnitude = m
+    }
+  }
+}
+
+echo(max_magnitude)
+
+# abs day18.abs < inputs/input18.txt
+# 2907
+# 4690
