@@ -20,3 +20,4 @@ _Hyper_ Polyglot challenge! This year I try to do every problem using a differen
 - Day 17 in [Pike](https://pike.lysator.liu.se/)
 - Day 18 in [ABS](https://www.abs-lang.org/)
 - Day 19 in [Haxe](https://haxe.org/)
+- Day 20 in [Wren](https://wren.io/)
