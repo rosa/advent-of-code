@@ -21,5 +21,5 @@ _Hyper_ Polyglot challenge! This year I try to do every problem using a differen
 - Day 18 in [ABS](https://www.abs-lang.org/)
 - Day 19 in [Haxe](https://haxe.org/)
 - Day 20 in [Wren](https://wren.io/)
-- Day 21 in ?
+- Day 21 in [Odin](https://odin-lang.org/)
 - Day 22 in [Pony](https://www.ponylang.io/)
