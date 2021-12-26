@@ -23,3 +23,4 @@ _Hyper_ Polyglot challenge! This year I try to do every problem using a differen
 - Day 20 in [Wren](https://wren.io/)
 - Day 21 in [Odin](https://odin-lang.org/)
 - Day 22 in [Pony](https://www.ponylang.io/)
+- Day 23 in [Dictu](https://dictu-lang.com/)

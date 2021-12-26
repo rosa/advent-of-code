@@ -1,0 +1,242 @@
+// --- Day 23: Amphipod ---
+
+import Math;
+
+class Plan {
+    var amphipods = ["A", "B", "C", "D"];
+    var energy = {"A": 1, "B": 10, "C": 100, "D": 1000};
+    var hallway = [[1, 0], [2, 0], [4, 0], [6, 0], [8, 0], [10, 0], [11, 0]];
+    var rooms = {"A": 3, "B": 5, "C": 7, "D": 9};
+    var depth = 2;
+
+    static roomCells() {
+        const cells = [];
+        Plan.rooms.forEach(def (c, x) => {
+            for (var y = 1; y <= Plan.depth; y += 1) {
+                cells.push([x, y]);
+            }
+        });
+        return cells;
+    }
+
+    static roomCellsFor(amphipod) {
+        const cells = [];
+        const x = Plan.rooms[amphipod];
+        for (var y = 1; y <= Plan.depth; y += 1) {
+            cells.push([x, y]);
+        }
+        return cells;
+    }
+
+    static organise(start) {
+        const queue = [start];
+        const energyNeeded = {};
+        var totalEnergy = 1000 * Plan.hallway.len() * Plan.rooms.len() * Plan.depth;
+
+        energyNeeded[start.toString()] = 0;
+
+        while(queue.len() > 0) {
+            var state = queue.pop(0);
+            var currentEnergy = energyNeeded[state.toString()];
+
+            if (state.isOrganised()) {
+                if (totalEnergy > currentEnergy) {
+                    totalEnergy = currentEnergy;
+                }
+            } else {
+                var neighbours = state.neighbours();
+                neighbours.forEach(def (n) => {
+                    if (!energyNeeded.exists(n.toString())) {
+                        energyNeeded[n.toString()] = currentEnergy + n.cost();
+                        queue.push(n);
+                    } else {
+                        if (energyNeeded[n.toString()] > currentEnergy + n.cost()) {
+                            energyNeeded[n.toString()] = currentEnergy + n.cost();
+                            queue.push(n);
+                        }
+                    }
+                });
+            }
+        }
+        return totalEnergy;
+    }
+}
+
+class State {
+    init(var burrow, var cost = 0) {}
+
+    cost() {
+        return this.cost;
+    }
+
+    neighbours() {
+        return this.moveIntoRoom() + this.moveIntoHallway();
+    }
+
+    moveIntoRoom() {
+        const newStates = [];
+        Plan.hallway.forEach(def (cell) => {
+            var amphipod = this.getCell(cell);
+            if (amphipod != ".") {
+                var placeInRoom = this.getPlaceInRoomFor(amphipod);
+                if (placeInRoom != nil and this.freePath(cell, placeInRoom)) {
+                    newStates.push(this.performMove(cell, placeInRoom));
+                }
+            }
+        });
+
+        return newStates;
+    }
+
+    getPlaceInRoomFor(amphipod) {
+        const roomCells = Plan.roomCellsFor(amphipod);
+        var placeInRoom = nil;
+        for (var i = 0; i < roomCells.len(); i += 1) {
+            var cell = roomCells[i];
+            var occupant = this.getCell(cell);
+
+            if (occupant == ".") {
+                placeInRoom = cell;
+            } else if (occupant != amphipod) {
+                return nil;
+            }
+        }
+
+        return placeInRoom;
+    }
+
+    moveIntoHallway() {
+        const newStates = [];
+        Plan.amphipods.forEach(def (amphipod) => {
+            if (!this.isAmphipodOrganised(amphipod)) {
+                var moving = this.getMovingAmphipodFrom(amphipod);
+                if (moving != nil) {
+                    Plan.hallway.forEach(def (cell) => {
+                        if (!this.isOccupied(cell) and this.freePath(moving, cell)) {
+                            newStates.push(this.performMove(moving, cell));
+                        }
+                    });
+                }
+            }
+        });
+
+        return newStates;
+    }
+
+    getMovingAmphipodFrom(amphipod) {
+        const roomCells = Plan.roomCellsFor(amphipod);
+
+        for (var i = 0; i < roomCells.len(); i += 1) {
+            var cell = roomCells[i];
+            if (this.getCell(cell) != ".") {
+                return cell;
+            }
+        }
+        return nil;
+    }
+
+    freePath(a, b) {
+        const [x1, y1] = a;
+        const [x2, y2] = b;
+
+        // Check path from hallway into rooms
+        if (y2 == 0) {
+            return this.freePath(b, a);
+        }
+
+        // From hallway into room
+        if (y1 == 0) {
+            var incr = x1 < x2 ? 1 : -1;
+            for (var j = x1 + incr; j != x2; j += incr) {
+                if (this.isOccupied([j, y1])) {
+                    return false;
+                }
+            }
+            for (var i = y1 + 1; i < y2; i += 1) {
+                if (this.isOccupied([x2, i])) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        return false;
+    }
+
+    performMove(a, b) {
+        const [x1, y1] = a;
+        const [x2, y2] = b;
+
+        var copy = this.burrow.deepCopy();
+        copy[y2][x2] = this.burrow[y1][x1];
+        copy[y1][x1] = ".";
+
+        const energyPerStep = Plan.energy[this.burrow[y1][x1]];
+        const steps = Math.abs(x1 - x2) + y1 + y2;
+
+        return State(copy, steps * energyPerStep);
+    }
+
+    isOrganised() {
+        for (var i = 0; i < Plan.amphipods.len(); i += 1) {
+            if (!this.isAmphipodOrganised(Plan.amphipods[i])) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    isAmphipodOrganised(amphipod) {
+        const j = Plan.rooms[amphipod];
+        for (var i = 1; i <= Plan.depth; i += 1) {
+            if (this.burrow[i][j] != amphipod) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    expand(lines) {
+        for (var i = 0; i < lines.len(); i += 1) {
+            this.burrow.insert(lines[i], i + 2);
+        }
+    }
+
+    getCell(cell) {
+        const [x, y] = cell;
+        return this.burrow[y][x];
+    }
+
+    isOccupied(cell) {
+        return this.getCell(cell) != ".";
+    }
+
+    toString() {
+        return this.burrow.map(def (l) => { return l.join(""); }).join("\n");
+    }
+}
+
+def start() {
+    const burrow = [];
+    with("inputs/input23.txt", "r") {
+        var line;
+        while((line = file.readLine()) != nil) {
+            burrow.push(line.split(""));
+        }
+    }
+
+    return State(burrow[1:-1]);
+}
+
+// Part 1
+const start = start();
+print(Plan.organise(start));
+
+// Part 2
+start.expand(["  #D#C#B#A#", "  #D#B#A#C#"].map(def (line) => {return line.split(""); }));
+Plan.depth = 4;
+print(Plan.organise(start));
+
+// dictu day23.du
+// 14346
+// 48984
