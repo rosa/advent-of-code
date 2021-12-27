@@ -24,3 +24,4 @@ _Hyper_ Polyglot challenge! This year I try to do every problem using a differen
 - Day 21 in [Odin](https://odin-lang.org/)
 - Day 22 in [Pony](https://www.ponylang.io/)
 - Day 23 in [Dictu](https://dictu-lang.com/)
+- Day 24 in [Groovy](https://groovy-lang.org/)
