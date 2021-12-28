@@ -1,4 +1,6 @@
-_Hyper_ Polyglot challenge! This year I try to do every problem using a different language, without repeating any of the languages I used in [my previous polyglot challenge in 2019](https://github.com/rosa/advent-of-code/tree/main/2019). Learning experience or pointless self-inflicted brain damage? The line that separates both is too thin.
+### Advent of Code 2021
+
+_Hyper_ Polyglot challenge! This year I tried to do every problem using a different language, without repeating any of the languages I used in [my previous polyglot challenge in 2019](https://github.com/rosa/advent-of-code/tree/main/2019). Fun learning experience or pointless self-inflicted brain damage? The line that separates both is too thin.
 
 
 - Day 1 in [Bash](https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html)
@@ -25,3 +27,8 @@ _Hyper_ Polyglot challenge! This year I try to do every problem using a differen
 - Day 22 in [Pony](https://www.ponylang.io/)
 - Day 23 in [Dictu](https://dictu-lang.com/)
 - Day 24 in [Groovy](https://groovy-lang.org/)
+- Day 25 in [Gravity](http://gravity-lang.org/)
+
+You can find the problem statements in [the Advent of Code site for 2021](https://adventofcode.com/2021).
+
+If you liked this, make sure to check [Alfredo's polyglot challenge](https://github.com/abeaumont/competitive-programming/blob/master/advent-of-code/2021/README.md) as well!

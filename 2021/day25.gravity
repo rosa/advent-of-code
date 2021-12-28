@@ -1,0 +1,101 @@
+// --- Day 25: Sea Cucumber ---
+
+class Herd {
+    private var _map;
+    private var _stopped = true;
+
+    func init(map) {
+        _map = map;
+     }
+
+     func print() {
+        for (var row in _map) {
+            System.print(row.join(""));
+        }
+        System.print("\n");
+     }
+
+    func step() {
+        var movedEast = moveEastFacing();
+        var movedSouth = moveSouthFacing();
+        return movedEast || movedSouth;
+    }
+
+    func run() {
+        var moved = true;
+        var steps = 0;
+        repeat {
+            moved = step();
+            // print();
+            steps += 1;
+            print(steps);
+        } while(moved);
+
+        return steps;
+    }
+
+    func moveEastFacing() {
+        var moved = false;
+
+        for (var row in _map) {
+            var moves = [:];
+            for (var j in 0...row.count - 1) {
+                if (row[j] == ">") {
+                    var k = (j + 1) % row.count;
+                    if (row[k] == ".") {
+                        moves[j] = k;
+                        moved = true;
+                    }
+                }
+            }
+
+            for (var from in moves.keys()) {
+                row[moves[from]] = row[from];
+                row[from] = ".";
+            }
+        }
+
+        return moved;
+    }
+
+    func moveSouthFacing() {
+        var moved = false;
+
+        for (var j in 0..._map[0].count - 1) {
+            var moves = [:];
+            for (var i in 0..._map.count - 1) {
+                if (_map[i][j] == "v") {
+                    var k = (i + 1) % _map.count;
+                    if (_map[k][j] == ".") {
+                        moves[i] = k;
+                        moved = true;
+                    }
+                }
+            }
+
+            for (var from in moves.keys()) {
+                _map[moves[from]][j] = _map[from][j];
+                _map[from][j] = ".";
+            }
+        }
+
+        return moved;
+    }
+}
+
+func readInitialMap(filename) {
+    return File.read(filename).split("\n").filter(func(s) {
+        return s.length > 0;
+    }).map(func(s) {
+        return s.split("");
+    });
+}
+
+func main() {
+    var herd = Herd(readInitialMap("inputs/input25.txt"));
+    var count = herd.run();
+    System.print(count);
+}
+
+//  ./gravity/gravity day25.gravity
+// 474
