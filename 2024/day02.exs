@@ -30,4 +30,3 @@ Reports.count_safes("./inputs/input02.txt") |> IO.puts
 
 # --- Part Two ---
 Reports.count_safes_with_dampener("./inputs/input02.txt") |> IO.puts
-
