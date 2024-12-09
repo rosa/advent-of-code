@@ -26,7 +26,7 @@ defmodule Locations do
   end
 end
 
-Locations.total_distance("./inputs/input01.txt") |> IO.puts
+Locations.total_distance("inputs/input01.txt") |> IO.puts
 
 # --- Part Two ---
-Locations.similarity_score("./inputs/input01.txt") |> IO.puts
+Locations.similarity_score("inputs/input01.txt") |> IO.puts

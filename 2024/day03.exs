@@ -34,8 +34,8 @@ defmodule Memory do
   end
 end
 
-Memory.extract_all_muls("./inputs/input03.txt") |> IO.puts
+Memory.extract_all_muls("inputs/input03.txt") |> IO.puts
 
 # --- Part Two ---
 
-Memory.extract_applicable_muls("./inputs/input03.txt") |> IO.puts
+Memory.extract_applicable_muls("inputs/input03.txt") |> IO.puts
