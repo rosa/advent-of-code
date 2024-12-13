@@ -51,11 +51,7 @@ defmodule Antennas do
     parse_map(row, {m, n, update_antennas(antennas, antenna, i, j)}, i, j + 1)
   end
   defp update_antennas(antennas, antenna, i, j) do
-    if Map.has_key?(antennas, antenna) do
-      Map.put(antennas, antenna, Map.get(antennas, antenna) ++ [{i, j}])
-    else
-      Map.put(antennas, antenna, [{i, j}])
-    end
+    Map.update(antennas, antenna, [{i, j}], fn x -> x ++ [{i, j}] end)
   end
 end
 

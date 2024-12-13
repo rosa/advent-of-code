@@ -8,11 +8,11 @@ defmodule Stones do
   def simulate(stones, 0), do: stones
   def simulate(stones, blinks), do: blink(stones) |> simulate(blinks - 1)
 
-  def blink(stones), do: present(stones) |> blink(stones, %{})
+  defp blink(stones), do: present(stones) |> blink(stones, %{})
 
-  def blink([], _, transformed), do: transformed
-  def blink([0|stones], previous, transformed), do: blink(stones, previous, replace(previous, transformed, 0, 1))
-  def blink([n|stones], previous, transformed) do
+  defp blink([], _, transformed), do: transformed
+  defp blink([0|stones], previous, transformed), do: blink(stones, previous, replace(previous, transformed, 0, 1))
+  defp blink([n|stones], previous, transformed) do
     if even_digits?(n) do
       blink(stones, previous, replace(previous, transformed, n, split_digits(n)))
     else
@@ -20,28 +20,21 @@ defmodule Stones do
     end
   end
 
-  def present(stones) do
+  defp present(stones) do
     Map.filter(stones, fn {_, v} -> v > 0 end) |> Map.keys()
   end
 
-  def replace(from, into, n, [r1, r2]), do: replace(from, replace(from, into, n, r1), n, r2)
-
-  def replace(from, into, n, r) do
+  defp replace(from, into, n, [r1, r2]), do: replace(from, replace(from, into, n, r1), n, r2)
+  defp replace(from, into, n, r) do
     %{^n => v} = from
     increment(into, r, v)
   end
 
-  def increment(stones, key, value) do
-    if Map.has_key?(stones, key) do
-      %{^key => v} = stones
-      %{stones | key => v + value}
-    else
-      Map.put(stones, key, value)
-    end
-  end
+  defp increment(stones, key, value), do: Map.update(stones, key, value, fn v -> v + value end)
 
-  def even_digits?(n), do: Integer.to_string(n) |> String.length() |> Integer.is_even()
-  def split_digits(n) do
+  defp even_digits?(n), do: Integer.to_string(n) |> String.length() |> Integer.is_even()
+
+  defp split_digits(n) do
     s = Integer.to_string(n)
     String.split_at(s, trunc(String.length(s)/2))
     |> Tuple.to_list()
