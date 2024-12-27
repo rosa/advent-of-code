@@ -203,8 +203,8 @@ defmodule Wired do
   end
 end
 
-Wired.read_circuit("inputs/input24.txt") |> Wired.run() |> IO.puts
+Wired.read_circuit("inputs/input24.txt") |> Wired.run() |> IO.puts()
 
 # --- Part Two ---
 
-Wired.read_circuit("inputs/input24.txt") |> Wired.swaps() |> IO.puts
+Wired.read_circuit("inputs/input24.txt") |> Wired.swaps() |> IO.puts()
