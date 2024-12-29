@@ -1,59 +1,59 @@
 # --- Day 16: Reindeer Maze ---
 
 defmodule Maze do
-  def shortest_path(maze), do: shortest_path(maze, %{starting_position(maze) => 0}, %{}, %{}, ending_position(maze))
-  def shortest_path(maze, distances, previous, visited, target) do
+  def shortest_paths(maze), do: shortest_paths(maze, %{starting_position(maze) => 0}, %{}, %{}, ending_position(maze))
+  def shortest_paths(maze, distances, paths, visited, target) do
     u = {v, _} = pick_candidate(distances, visited)
     if v == target do
-      # IO.inspect(Map.get(previous, {{10, 3}, ""}))
-      {Map.get(distances, u), all_tiles(previous, maze)}
+      {Map.get(distances, u), all_tiles(maze, distances, paths, u)}
     else
       updated_visited = Map.put(visited, u, true)
-      {updated_distances, updated_previous} = neighbours(maze, u, updated_visited) |> update_paths(maze, u, distances, previous)
+      {updated_distances, updated_paths} = neighbours(maze, u, updated_visited) |> update_paths( u, distances, paths)
 
-      shortest_path(maze, updated_distances, updated_previous, updated_visited, target)
+      shortest_paths(maze, updated_distances, updated_paths, updated_visited, target)
     end
   end
 
-  def all_tiles(paths, maze), do: all_tiles(paths, starting_position(maze), {{1,13}, "^"}, []) |> Enum.map(&(elem(&1, 0))) |> Enum.uniq()
-  def all_tiles(_, u, u, tiles), do: tiles
-  def all_tiles(paths, u, v, tiles) do
+  defp all_tiles(maze, distances, paths, target) do
+    all_tiles(distances, paths, starting_position(maze), target, [target])
+    |> Enum.map(&(elem(&1, 0)))
+    |> Enum.uniq()
+  end
+  defp all_tiles(_, _, u, u, tiles), do: tiles
+  defp all_tiles(distances, paths, u, v, tiles) do
     Map.get(paths, v)
-    |> Enum.map(fn n -> [n] ++ all_tiles(paths, u, n, tiles) end)
+    |> Enum.filter(fn n -> part_of_best_path?(distances, n, v) end)
+    |> Enum.map(fn n -> [n] ++ all_tiles(distances, paths, u, n, tiles) end)
     |> Enum.reduce(&(&1 ++ &2))
   end
 
-
-  defp pick_candidate(distances, visited) do
-    min_dist = Enum.filter(distances, fn {k, _} -> !Map.has_key?(visited, k) end) |> Enum.map(&(elem(&1, 1))) |> Enum.min()
-    Enum.find(distances, fn {k, v} -> !Map.has_key?(visited, k) and v == min_dist end) |> elem(0)
+  defp part_of_best_path?(distances, n, v) do
+    Map.get(distances, n) + distance(n, v) <= Map.get(distances, v)
   end
 
-  defp update_paths([], _, _, distances, previous), do: {distances, previous}
-  defp update_paths([n|neighbours], maze, u, distances, previous) do
-    alt = Map.get(distances, u) + distance(n, u)
-    cond do
-      !Map.has_key?(distances, n) -> update_paths(neighbours, maze, u, Map.put(distances, n, alt), Map.put(previous, n, [u]))
-      alt < Map.get(distances, u) -> update_paths(neighbours, maze, u, Map.put(distances, n, alt), Map.put(previous, n, [u]))
-      alt == Map.get(distances, u) -> update_paths(neighbours, maze, u, distances, Map.update(previous, n, [u], fn ns -> ns ++ [u] end))
-      true -> update_paths(neighbours, maze, u, distances, previous)
-    end
+  defp pick_candidate(distances, visited) do
+    Enum.filter(distances, fn {k, _} -> !Map.get(visited, k) end)
+    |> Enum.min_by(fn {_, d} -> d end)
+    |> elem(0)
+  end
+
+  defp update_paths([], _, distances, previous), do: {distances, previous}
+  defp update_paths([n|neighbours], u, distances, previous) do
+    dist = Map.get(distances, u) + distance(n, u)
+    update_paths(neighbours, u, Map.put(distances, n, dist), Map.update(previous, n, [u], fn ns -> ns ++ [u] end))
   end
 
   defp neighbours(maze, {v, d}, visited) do
-    u = next(v, d)
-    if Map.get(maze, u) != "#" do
-      [{u, d}] ++ filtered_turns(maze, v, d, visited)
-    else
-      filtered_turns(maze, v, d, visited)
-    end |> Enum.filter(fn n -> !Map.has_key?(visited, n) end)
+    [{next(v, d), d}] ++ all_turns(v, d)
+    |> Enum.filter(fn {u, d} -> valid?(maze, u) && !Map.get(visited, {u, d}) end)
   end
 
-  defp filtered_turns(maze, v, d, visited) do
-    turns(d)
-    |> Enum.filter(fn nd -> Map.get(maze, next(v, nd)) != "#" and !Map.has_key?(visited, {next(v, nd), nd}) end)
-    |> Enum.map(fn nd -> {v, nd} end)
+  defp all_turns(v, d) do
+    turns(d) |> Enum.map(fn nd -> {v, nd} end)
   end
+
+  defp valid?(maze, u), do: Map.get(maze, u) |> valid?()
+  defp valid?(c), do: c in [".", "S", "E"]
 
   defp next({i, j}, "^"), do: {i-1, j}
   defp next({i, j}, ">"), do: {i, j+1}
@@ -64,8 +64,8 @@ defmodule Maze do
   defp turns(d) when d in [">", "<"], do: ["v", "^"]
 
   def distance(u, u), do: 0
-  def distance({u, du}, {v, dv}) when u != v and du == dv, do: 1
-  def distance({u, du}, {v, dv}) when u == v and du != dv, do: 1000
+  def distance({u, du}, {v, du}) when u != v, do: 1
+  def distance({u, du}, {u, dv}) when du != dv, do: 1000
 
   defp starting_position(maze), do: {Enum.find(maze, fn {_, v} -> v == "S" end) |> elem(0), ">"}
   defp ending_position(maze), do: Enum.find(maze, fn {_, v} -> v == "E" end) |> elem(0)
@@ -93,24 +93,11 @@ defmodule Maze do
 
   defp parse_maze([], maze, _, _), do: maze
   defp parse_maze([c | row], maze, i, j), do: parse_maze(row, Map.put(maze, {i, j}, c), i, j + 1)
-
-
-  def update([], maze), do: maze
-  def update([t|tiles], maze), do: update(tiles, Map.put(maze, t, "O"))
 end
 
-maze = Maze.read("inputs/input16.txt")
-{distance, tiles} = Maze.shortest_path(maze)
+{distance, tiles} = Maze.read("inputs/input16.txt") |> Maze.shortest_paths()
 IO.puts(distance)
-
-IO.inspect(tiles)
-Maze.update(tiles, maze) |> Maze.print(15, 15)
-
-
-# shortest_distance = 109496
 
 # --- Part Two ---
 
-# tiles = Maze.all_shortest_paths(maze, shortest_distance) |> IO.inspect()
-# IO.puts(MapSet.size(tiles))
-# Maze.update(MapSet.to_list(tiles), maze) |> Maze.print(141, 141)
+Enum.count(tiles) |> IO.puts()
